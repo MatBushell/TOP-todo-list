@@ -1,5 +1,3 @@
-`A projects array contains project objects which contain a method for adding new tasks to the tasks array within each project...?`
-
 const projects = [];
 const completedTasks = [];
 
@@ -10,7 +8,7 @@ function Project(title) {
     this.title = title;
     this.tasks = [];
 }
-// #region Project methods
+// #region PROJECT METHODS
 Project.prototype.pushTask = function (task) {
     this.tasks.push(task);
 }
@@ -33,7 +31,7 @@ Project.prototype.newTask = function (title) {
 
 // #endregion
 
-// #region task methods
+// #region TASK METHODS
 function Subtask(title) {
     if (!new.target) {
         throw Error("You must use the new operator to call the constructor.");
