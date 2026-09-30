@@ -1,0 +1,37 @@
+body {
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(48, 45, 39);
+}
+
+.navContainer {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgb(104, 97, 85);
+    color: white;
+    background-color: transparent;
+    text-align: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding-bottom: 5px;
+}
+
+.content {
+    display: flex;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    width: 98%;
+    flex-basis: 500px;
+    align-self: center;
+    margin-top: 1%;
+    border-radius: 10px;
+    corner-shape: round;
+
+
+}
