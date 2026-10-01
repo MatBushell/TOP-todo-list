@@ -17,9 +17,21 @@ body {
 
 .nav {
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     list-style-type: none;
+    padding-left: 0px;
+    /* padding-bottom: 5px; */
+}
+
+li {
+    flex: 1;
+    background-color: transparent;
     padding-bottom: 5px;
+}
+
+li:hover {
+    border-bottom: 2px solid rgb(104, 97, 85);
+    padding-bottom: 3px;
 }
 
 .content {
@@ -32,6 +44,4 @@ body {
     margin-top: 1%;
     border-radius: 10px;
     corner-shape: round;
-
-
 }
