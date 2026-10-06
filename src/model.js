@@ -1,3 +1,5 @@
+// model.js
+
 function Project(title) {
     if (!new.target) {
         throw Error("You must use the 'new' operator to call the constructor.");

@@ -17,10 +17,8 @@ body {
 
 .nav {
     display: flex;
-    /* justify-content: space-around; */
     list-style-type: none;
     padding-left: 0px;
-    /* padding-bottom: 5px; */
 }
 
 li {
@@ -35,13 +33,30 @@ li:hover {
 }
 
 .content {
-    display: flex;
+    display: grid;
+    gap: 10px;
     color: white;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(48, 45, 39);
     width: 98%;
-    flex-basis: 500px;
+    height: 500px;
     align-self: center;
     margin-top: 1%;
+    padding: 10px;
+    border: 1px solid white;
+}
+
+.card {
+    display: grid;
+    /* min-height: 200px; */
+    max-height: 200px;
+    background-color: black;
+    color: white;
     border-radius: 10px;
     corner-shape: round;
 }
+
+.cardHeader {
+    display: flex;
+}
+
+

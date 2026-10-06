@@ -1,25 +1,21 @@
+// state.js
+import { Project } from "./model.js";
+
 const projects = [];
 const completedTasks = [];
 
-function clearProjects() {
-    projects.length = 0;
+function getProjectsCount() {
+    return projects.length;
 }
 
-function addProject(obj) {
-    projects.push(obj);
+function createProject(title) {
+    projects.push(new Project(title));
 }
 
-function getProjectById(id) {
-    for (let i = 0; i < projects.length; i++) {
-        const obj = projects[i];
-        if (obj.id === id) {
-            return obj;
-        }
-    }
-    console.log(`No project with that ID`);
-    return undefined;
+function getTitle() {
+    prompt("Title: ");
 }
 
-export { clearProjects, getProjectById, addProject };
+export { getProjectsCount, createProject, getTitle };
 
 
