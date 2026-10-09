@@ -4,13 +4,17 @@ function Project(title) {
     if (!new.target) {
         throw Error("You must use the 'new' operator to call the constructor.");
     }
-    this.id = 1;
+    this.id = crypto.randomUUID();
     this.title = title;
     this.tasks = [];
 }
 // #region PROJECT METHODS
 Project.prototype.pushTask = function (task) {
     this.tasks.push(task);
+}
+
+Project.prototype.getTitle = function() {
+    return this.title;
 }
 
 function Task(title) {

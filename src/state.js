@@ -12,10 +12,10 @@ function createProject(title) {
     projects.push(new Project(title));
 }
 
-function getTitle() {
-    prompt("Title: ");
+function promptForTitle() {
+    return prompt("Title: ");
 }
 
-export { getProjectsCount, createProject, getTitle };
+export { getProjectsCount, createProject, promptForTitle, projects };
 
 

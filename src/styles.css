@@ -1,8 +1,14 @@
 body {
     font-family: "Roboto", sans-serif;
-    display: flex;
-    flex-direction: column;
+    background-color: black;
+}
 
+.appContainer {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 750px;
     background-color: rgb(48, 45, 39);
 }
 
@@ -21,6 +27,14 @@ body {
     padding-left: 0px;
 }
 
+.star {
+    flex: 0 1 50px;
+    color: rgb(255, 255, 255);
+    /* background-color: white; */
+    font-variation-settings:
+        'FILL' 1
+}
+
 li {
     flex: 1;
     background-color: transparent;
@@ -28,9 +42,15 @@ li {
 }
 
 li:hover {
-    border-bottom: 2px solid rgb(104, 97, 85);
+    background-color: rgb(63, 59, 51);
+}
+
+.isActive {
+    border-bottom: 2px solid rgb(255, 255, 255);
     padding-bottom: 3px;
 }
+
+
 
 .content {
     display: grid;
@@ -45,7 +65,7 @@ li:hover {
     border: 1px solid white;
 }
 
-.card {
+.projectCard {
     display: grid;
     /* min-height: 200px; */
     max-height: 200px;
@@ -58,5 +78,3 @@ li:hover {
 .cardHeader {
     display: flex;
 }
-
-
