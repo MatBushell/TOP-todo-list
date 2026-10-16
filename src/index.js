@@ -1,3 +1,6 @@
+import "./reset.css";
+import "./styles.css";
+
 const projects = [];
 const completedTasks = [];
 
@@ -64,7 +67,7 @@ Task.prototype.getDetails = function () {
 };
 
 Task.prototype.setDuedate = function (dueDate) {
-    return this.duedate = dueDate;
+    return this.dueDate = dueDate;
 };
 
 Task.prototype.getDuedate = function () {
@@ -72,7 +75,7 @@ Task.prototype.getDuedate = function () {
 };
 
 Task.prototype.setPriority = function (priority) {
-    return this.priotiy = priority;
+    return this.priority = priority;
 };
 
 Task.prototype.getPriority = function () {
