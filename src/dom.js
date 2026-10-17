@@ -84,23 +84,25 @@ function handleTabClick(e) {
         item.classList.remove("isActive");
     });
 
-    if (!e.target.classList.contains("newProject") && !e.target.dataset.id === "star") {
-        e.target.classList.add("isActive");
-        const tabId = e.target.dataset.id;
-        console.log(tabId);
-        //add content paint here
-        createProjectCard(tabId);
-        console.log(projects);
-    } else if (e.target.dataset.id === "star") {
-        createStarCard();
-        console.log("you clicked the star");
-    } else {
+    if (e.target.id === "create-project") {
         const newTitle = promptForTitle();
         if (newTitle) {
             createProject(newTitle);
             addTab();
             createProjectCard();
         }
+    } else if (e.target.dataset.id === "star") {
+        e.target.classList.add("isActive");
+        createStarCard();
+        console.log("you clicked the star");
+    } else {
+        e.target.classList.add("isActive");
+        const tabId = e.target.dataset.id;
+        console.log(tabId);
+        //add content paint here
+        createProjectCard(tabId);
+        console.log(projects);
+
     }
 
 }
