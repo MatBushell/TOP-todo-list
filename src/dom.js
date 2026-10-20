@@ -4,19 +4,19 @@ import { getProjectsCount, createProject, promptForTitle, projects, starred, cre
 
 // SELECTORS
 const projectCount = document.querySelector(".projectCount");
+const appContainer = document.querySelector(".appContainer");
 const content = document.querySelector(".content");
 const stared = document.querySelector(".starred");
 const nav = document.querySelector(".nav");
 
+
+const plusButton = document.createElement("button");
+plusButton.textContent = "add";
+plusButton.classList.add("add", "material-symbols-outlined", "plusButton");
+appContainer.append(plusButton);
+
 function clearContentElement() {
     return content.textContent = undefined;
-}
-
-function addTaskButton() {
-    const button = document.createElement("button");
-    button.textContent = "add";
-    button.classList.add("add", "material-symbols-outlined");
-    content.append(button);
 }
 
 function addTab() {
@@ -53,16 +53,8 @@ function createStarCard() {
 
     starCardHeader.append(starCardTitle, sortBy);
 
-    createPlusButton();
 }
 
-function createPlusButton() {
-    // Plus Button
-    const button = document.createElement("button");
-    button.textContent = "add";
-    button.classList.add("add", "material-symbols-outlined");
-    content.append(button);
-}
 
 
 function createProjectCard(tabId) {
@@ -92,7 +84,6 @@ function createProjectCard(tabId) {
     cardWidgets.append(sortBy, actions);
     cardHeader.append(cardTitle, cardWidgets);
 
-    createPlusButton();
 
     if (id) {
         cardTitle.textContent = projects.find(p => p.id === id)?.title;
@@ -136,7 +127,8 @@ function handleTabClick(e) {
 }
 
 function handlePlusClick() {
-
+    // const activeProject = document.querySelector(".isActive");
+    console.log("the button?");
 }
 
 function init() {
@@ -147,6 +139,8 @@ function init() {
     createProject("My Tasks"); //Object in projects array
     createProjectCard(); // Default card in dom - sources projects array
     addTab(); // My tasks tab
+
+    plusButton.addEventListener("click", handlePlusClick);
 }
 
 export { init };
