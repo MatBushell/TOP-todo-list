@@ -17,6 +17,10 @@ Project.prototype.getTitle = function() {
     return this.title;
 }
 
+Project.prototype.newTask = function (title) {
+    return pushTask(new Task(title));
+}
+
 function Task(title) {
     if (!new.target) {
         throw Error("You must use the 'new' operator to call the constructor.");
@@ -30,9 +34,7 @@ function Task(title) {
     this.subtasks = [];
 }
 
-Project.prototype.newTask = function (title) {
-    return new Task(title);
-}
+
 
 // #endregion
 

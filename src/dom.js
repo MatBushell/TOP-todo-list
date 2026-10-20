@@ -1,6 +1,6 @@
 // dom.js
 
-import { getProjectsCount, createProject, promptForTitle, projects, starred } from "./state.js";
+import { getProjectsCount, createProject, promptForTitle, projects, starred, createTask } from "./state.js";
 
 // SELECTORS
 const projectCount = document.querySelector(".projectCount");
@@ -8,6 +8,16 @@ const content = document.querySelector(".content");
 const stared = document.querySelector(".starred");
 const nav = document.querySelector(".nav");
 
+function clearContentElement() {
+    return content.textContent = undefined;
+}
+
+function addTaskButton() {
+    const button = document.createElement("button");
+    button.textContent = "add";
+    button.classList.add("add", "material-symbols-outlined");
+    content.append(button);
+}
 
 function addTab() {
     const newTab = document.createElement("li");
@@ -19,16 +29,16 @@ function addTab() {
 }
 
 function addStarTab() {
-    const starTab = document.createElement("li");
-    starTab.textContent = "star";
-    starTab.dataset.id = "star";
-    starTab.classList.add("star", "material-symbols-outlined");
+    const button = document.createElement("li");
+    button.textContent = "star";
+    button.dataset.id = "star";
+    button.classList.add("star", "material-symbols-outlined");
     const parent = document.querySelector(".nav");
-    parent.insertAdjacentElement("afterbegin", starTab);
+    parent.insertAdjacentElement("afterbegin", button);
 }
 
 function createStarCard() {
-    content.textContent = "";
+    clearContentElement();
     const starCard = document.createElement("div");
     content.append(starCard);
     starCard.classList.add("starred", "projectCard"); // Styling
@@ -44,35 +54,51 @@ function createStarCard() {
     starCardHeader.append(starCardTitle, sortBy);
 }
 
-function clearContentElement() {
-    return content.textContent = undefined;
-}
-
 
 function createProjectCard(tabId) {
     // Create and append card elements + styling
     const id = tabId;
     clearContentElement();
+    // Card
     const projectCard = document.createElement("div");
     content.append(projectCard);
-    projectCard.classList.add("projectCard"); // Styling
+    projectCard.classList.add("projectCard");
+    // Card Header
     const cardHeader = document.createElement("div");
     cardHeader.classList.add("cardHeader");
     projectCard.append(cardHeader);
     const cardTitle = document.createElement("div");
+    // Widgets container
+    const cardWidgets = document.createElement("div");
+    cardWidgets.classList.add("cardWidgets");
+    // Widgets
     const sortBy = document.createElement("div");
     sortBy.classList.add("material-symbols-outlined", "sortBy");
     sortBy.textContent = "mobiledata_arrows";
     const actions = document.createElement("div");
     actions.classList.add("material-symbols-outlined", "actions");
     actions.textContent = "more_vert";
-    cardHeader.append(cardTitle, sortBy, actions);
+
+    cardWidgets.append(sortBy, actions);
+    cardHeader.append(cardTitle, cardWidgets);
+
+    // Plus Button
+    const button = document.createElement("button");
+    button.textContent = "add";
+    button.classList.add("add", "material-symbols-outlined");
+    content.append(button);
+
+
+
+
 
     if (id) {
         cardTitle.textContent = projects.find(p => p.id === id)?.title;
     } else {
         cardTitle.textContent = projects[projects.length - 1].title;
     }
+
+
 
 }
 

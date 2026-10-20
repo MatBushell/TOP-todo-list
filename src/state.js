@@ -1,5 +1,5 @@
 // state.js
-import { Project } from "./model.js";
+import { Project, Subtask } from "./model.js";
 
 const projects = [];
 const completedTasks = [];
@@ -13,10 +13,14 @@ function createProject(title) {
     projects.push(new Project(title));
 }
 
+function createTask(title) {
+    Project.newTask(title);
+}
+
 function promptForTitle() {
     return prompt("Title: ");
 }
 
-export { getProjectsCount, createProject, promptForTitle, projects, starred };
+export { getProjectsCount, createProject, promptForTitle, createTask, projects, starred };
 
 
