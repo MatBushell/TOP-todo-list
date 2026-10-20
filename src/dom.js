@@ -52,6 +52,16 @@ function createStarCard() {
     sortBy.textContent = "mobiledata_arrows";
 
     starCardHeader.append(starCardTitle, sortBy);
+    
+    createPlusButton();
+}
+
+function createPlusButton() {
+    // Plus Button
+    const button = document.createElement("button");
+    button.textContent = "add";
+    button.classList.add("add", "material-symbols-outlined");
+    content.append(button);
 }
 
 
@@ -82,15 +92,13 @@ function createProjectCard(tabId) {
     cardWidgets.append(sortBy, actions);
     cardHeader.append(cardTitle, cardWidgets);
 
-    // Plus Button
-    const button = document.createElement("button");
-    button.textContent = "add";
-    button.classList.add("add", "material-symbols-outlined");
-    content.append(button);
+    createPlusButton();
 
-
-
-
+    // // Plus Button
+    // const button = document.createElement("button");
+    // button.textContent = "add";
+    // button.classList.add("add", "material-symbols-outlined");
+    // content.append(button);
 
     if (id) {
         cardTitle.textContent = projects.find(p => p.id === id)?.title;
