@@ -52,7 +52,7 @@ function createStarCard() {
     sortBy.textContent = "mobiledata_arrows";
 
     starCardHeader.append(starCardTitle, sortBy);
-    
+
     createPlusButton();
 }
 
@@ -93,12 +93,6 @@ function createProjectCard(tabId) {
     cardHeader.append(cardTitle, cardWidgets);
 
     createPlusButton();
-
-    // // Plus Button
-    // const button = document.createElement("button");
-    // button.textContent = "add";
-    // button.classList.add("add", "material-symbols-outlined");
-    // content.append(button);
 
     if (id) {
         cardTitle.textContent = projects.find(p => p.id === id)?.title;
@@ -141,12 +135,18 @@ function handleTabClick(e) {
 
 }
 
+function handlePlusClick() {
+
+}
+
 function init() {
     nav.addEventListener("click", handleTabClick);
+
+    // Creates Default tabs and card (except +New - hard coded.)
     addStarTab();
-    createProject("My Tasks");
-    createProjectCard();
-    addTab();
+    createProject("My Tasks"); //Object in projects array
+    createProjectCard(); // Default card in dom - sources projects array
+    addTab(); // My tasks tab
 }
 
 export { init };
