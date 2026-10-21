@@ -1,6 +1,6 @@
 // dom.js
 
-import { getProjectsCount, createProject, promptForTitle, projects, starred, createTask } from "./state.js";
+import { getProjectsCount, createProject, promptForTitle, projects, starred } from "./state.js";
 
 // SELECTORS
 const projectCount = document.querySelector(".projectCount");
@@ -113,22 +113,31 @@ function handleTabClick(e) {
     } else if (e.target.dataset.id === "star") {
         e.target.classList.add("isActive");
         createStarCard();
-        console.log("you clicked the star");
+        // console.log("you clicked the star");
     } else {
         e.target.classList.add("isActive");
         const tabId = e.target.dataset.id;
-        console.log(tabId);
+        // console.log(tabId);
         //add content paint here
         createProjectCard(tabId);
-        console.log(projects);
+        // console.log(projects);
 
     }
 
 }
 
 function handlePlusClick() {
-    // const activeProject = document.querySelector(".isActive");
-    console.log("the button?");
+    const id = document.querySelector(".isActive").dataset.id;
+    let currProject;
+    projects.forEach(function(p) {
+        if (p.id === id){
+            currProject = p;
+        }
+        
+    });
+    const newTaskTitle = promptForTitle();
+    currProject.newTask(newTaskTitle);
+    console.log(currProject);
 }
 
 function init() {

@@ -18,7 +18,7 @@ Project.prototype.getTitle = function() {
 }
 
 Project.prototype.newTask = function (title) {
-    return pushTask(new Task(title));
+    this.pushTask(new Task(title));
 }
 
 function Task(title) {

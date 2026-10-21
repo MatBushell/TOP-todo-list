@@ -13,14 +13,11 @@ function createProject(title) {
     projects.push(new Project(title));
 }
 
-function createTask(title) {
-    Project.newTask(title);
-}
 
 function promptForTitle() {
     return prompt("Title: ");
 }
 
-export { getProjectsCount, createProject, promptForTitle, createTask, projects, starred };
+export { getProjectsCount, createProject, promptForTitle, projects, starred };
 
 
