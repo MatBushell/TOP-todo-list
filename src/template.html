@@ -5,26 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>toodoo</title>
+    <!-- Preconnect first -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!--Fonts and icons -->
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Mono+One&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!--Style sheets-->
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <header class="navContainer">
-        <h1>Tasks</h1>
-        <ul class="nav">
-            <li class="star">Star</li>
-            <li class="projects">Projects</li>
-            <li class="newProject">+ New Project</li>
-        </ul>
-    </header>
-    <content class="content">
-    </content>
+    <div class="appContainer">
+        <header class="navContainer">
+            <h1>Tasks</h1>
+            <ul class="nav">
+                <!-- <li class="starred material-symbols-outlined">
+                    star
+                </li> -->
+                <!-- <li class="defaultProject">My Tasks</li> -->
+                <li class="newProject" id="create-project">+ NEW</li>
+            </ul>
+        </header>
+        <content class="content">
+            <!-- <div class="projectCard">
+                <div class="cardHeader">
+                    <div class="cardTitle">My Tasks</div>
+                    <div class="sortBy material-symbols-outlined">
+                        mobiledata_arrows
+                    </div>
+                    <div class="actions material-symbols-outlined">
+                        more_vert
+                    </div>
+                </div>
+            </div> -->
+    </div>
 </body>
 
 </html>

@@ -1,8 +1,15 @@
 body {
     font-family: "Roboto", sans-serif;
-    display: flex;
-    flex-direction: column;
+    background-color: black;
+}
 
+.appContainer {
+    position: relative;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    max-width: 750px;
+    min-height: 100dvh;
     background-color: rgb(48, 45, 39);
 }
 
@@ -13,25 +20,92 @@ body {
     color: white;
     background-color: transparent;
     text-align: center;
+    cursor: pointer;
 }
 
 .nav {
     display: flex;
-    justify-content: space-around;
     list-style-type: none;
+    padding-left: 0px;
+}
+
+.star {
+    flex: 0 1 50px;
+    color: rgb(255, 255, 255);
+    /* background-color: white; */
+    font-variation-settings:
+        'FILL' 1
+}
+
+
+li {
+    flex: 1;
+    background-color: transparent;
     padding-bottom: 5px;
 }
 
+li:hover {
+    background-color: rgb(63, 59, 51);
+}
+
+.isActive {
+    border-bottom: 2px solid rgb(255, 255, 255);
+    padding-bottom: 3px;
+}
+
+
+
 .content {
-    display: flex;
+    display: grid;
+    gap: 10px;
     color: white;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(48, 45, 39);
     width: 98%;
-    flex-basis: 500px;
+    height: 500px;
     align-self: center;
     margin-top: 1%;
+    padding: 10px;
+    /* border: 1px solid white; */
+}
+
+.projectCard {
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    max-height: 100%;
+    background-color: black;
+    color: white;
     border-radius: 10px;
     corner-shape: round;
+    padding: 10px;
+}
 
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
 
+/* .cardWidgets {
+
+} */
+
+.add {
+    position: absolute;
+    /* top: 90; */
+    bottom: 2%;
+    right: 2%;
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    border-radius: 10px;
+    corner-shape: round;
+    /* position: sticky; */
+    z-index: 10;
+    color: rgb(0, 0, 0);
+    /* background-color: white; */
+    font-variation-settings:
+        'FILL' 1
 }
