@@ -6,11 +6,11 @@ function Project(title) {
     }
     this.id = crypto.randomUUID();
     this.title = title;
-    this.tasks = [];
+    this.taskList = [];
 }
 // #region PROJECT METHODS
 Project.prototype.pushTask = function (task) {
-    this.tasks.push(task);
+    this.taskList.push(task);
 }
 
 Project.prototype.getTitle = function() {
@@ -19,6 +19,14 @@ Project.prototype.getTitle = function() {
 
 Project.prototype.newTask = function (title) {
     this.pushTask(new Task(title));
+}
+
+Project.prototype.tasksCount = function () {
+    return this.taskList.length;
+}
+
+Project.prototype.getTaskList = function () {
+    return this.taskList;
 }
 
 function Task(title) {

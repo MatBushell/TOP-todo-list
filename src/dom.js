@@ -65,14 +65,23 @@ function createProjectCard(tabId) {
     const projectCard = document.createElement("div");
     content.append(projectCard);
     projectCard.classList.add("projectCard");
+
     // Card Header
     const cardHeader = document.createElement("div");
     cardHeader.classList.add("cardHeader");
-    projectCard.append(cardHeader);
+
+    // Card Body (contains tasks)
+    const cardBody = document.createElement("ul");
+    cardBody.classList.add("cardBody");
+
+    projectCard.append(cardHeader, cardBody);
+
     const cardTitle = document.createElement("div");
+
     // Widgets container
     const cardWidgets = document.createElement("div");
     cardWidgets.classList.add("cardWidgets");
+
     // Widgets
     const sortBy = document.createElement("div");
     sortBy.classList.add("material-symbols-outlined", "sortBy");
@@ -126,18 +135,28 @@ function handleTabClick(e) {
 
 }
 
-function handlePlusClick() {
+function paintTasksList(currProject) {// creates dom elements for current projects taskList items ("tasks").
+
+    const tasks = currProject.getTaskList();
+    
+    console.log(tasks);
+
+    
+}
+
+function handlePlusClick() { // Gets the tab ID and uses it to retrieve the object from projects arr by same ID.
     const id = document.querySelector(".isActive").dataset.id;
     let currProject;
     projects.forEach(function(p) {
         if (p.id === id){
             currProject = p;
-        }
-        
+        }   
     });
     const newTaskTitle = promptForTitle();
     currProject.newTask(newTaskTitle);
     console.log(currProject);
+    console.log(currProject.tasksCount());
+    paintTasksList(currProject);
 }
 
 function init() {
