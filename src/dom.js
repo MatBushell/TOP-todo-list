@@ -138,19 +138,29 @@ function handleTabClick(e) {
 function paintTasksList(currProject) {// creates dom elements for current projects taskList items ("tasks").
 
     const tasks = currProject.getTaskList();
-    
-    console.log(tasks);
+    const cardBody = document.querySelector(".cardBody");
+    cardBody.textContent = "";
 
-    
+    for (let curTask = 0; curTask < tasks.length; curTask++) {
+        const lI = document.createElement("li");
+        lI.innerText = tasks[curTask].title;
+        cardBody.appendChild(lI);
+        // console.log(curTask.title);
+
+    }
+
+
+
+
 }
 
 function handlePlusClick() { // Gets the tab ID and uses it to retrieve the object from projects arr by same ID.
     const id = document.querySelector(".isActive").dataset.id;
     let currProject;
-    projects.forEach(function(p) {
-        if (p.id === id){
+    projects.forEach(function (p) {
+        if (p.id === id) {
             currProject = p;
-        }   
+        }
     });
     const newTaskTitle = promptForTitle();
     currProject.newTask(newTaskTitle);

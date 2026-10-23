@@ -13,7 +13,7 @@ Project.prototype.pushTask = function (task) {
     this.taskList.push(task);
 }
 
-Project.prototype.getTitle = function() {
+Project.prototype.getTitle = function () {
     return this.title;
 }
 
@@ -29,6 +29,8 @@ Project.prototype.getTaskList = function () {
     return this.taskList;
 }
 
+
+
 function Task(title) {
     if (!new.target) {
         throw Error("You must use the 'new' operator to call the constructor.");
@@ -41,19 +43,10 @@ function Task(title) {
     this.completed = false;
     this.subtasks = [];
 }
-
-
-
 // #endregion
 
 // #region TASK METHODS
-function Subtask(title) {
-    if (!new.target) {
-        throw Error("You must use the new operator to call the constructor.");
-    }
-    this.id = crypto.randomUUID();
-    this.title = title;
-}
+
 
 Task.prototype.pushSubtask = function (subtask) {
     this.subtasks.push(subtask);
@@ -103,7 +96,14 @@ Task.prototype.getCompleted = function () {
     return this.completed;
 };
 
-
 // #endregion
+
+function Subtask(title) {
+    if (!new.target) {
+        throw Error("You must use the new operator to call the constructor.");
+    }
+    this.id = crypto.randomUUID();
+    this.title = title;
+}
 
 export { Project, Task, Subtask };
