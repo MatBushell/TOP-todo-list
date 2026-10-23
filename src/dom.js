@@ -126,10 +126,12 @@ function handleTabClick(e) {
     } else {
         e.target.classList.add("isActive");
         const tabId = e.target.dataset.id;
-        // console.log(tabId);
+        console.log(tabId);
         //add content paint here
         createProjectCard(tabId);
-        // console.log(projects);
+        const currProject = getCurrentProject();
+        paintTasksList(currProject);
+        console.log(projects);
 
     }
 
@@ -149,12 +151,10 @@ function paintTasksList(currProject) {// creates dom elements for current projec
 
     }
 
-
-
-
 }
 
-function handlePlusClick() { // Gets the tab ID and uses it to retrieve the object from projects arr by same ID.
+function getCurrentProject() {
+    // Gets the "active" tab ID and uses it to retrieve the object from projects arr by same ID.
     const id = document.querySelector(".isActive").dataset.id;
     let currProject;
     projects.forEach(function (p) {
@@ -162,6 +162,12 @@ function handlePlusClick() { // Gets the tab ID and uses it to retrieve the obje
             currProject = p;
         }
     });
+    return currProject;
+
+}
+
+function handlePlusClick() { 
+    const currProject = getCurrentProject();
     const newTaskTitle = promptForTitle();
     currProject.newTask(newTaskTitle);
     console.log(currProject);
