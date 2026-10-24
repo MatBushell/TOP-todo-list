@@ -10,6 +10,8 @@ const stared = document.querySelector(".starred");
 const nav = document.querySelector(".nav");
 
 
+
+
 const plusButton = document.createElement("button");
 plusButton.textContent = "add";
 plusButton.classList.add("add", "material-symbols-outlined", "plusButton");
@@ -55,8 +57,6 @@ function createStarCard() {
 
 }
 
-
-
 function createProjectCard(tabId) {
     // Create and append card elements + styling
     const id = tabId;
@@ -71,10 +71,10 @@ function createProjectCard(tabId) {
     cardHeader.classList.add("cardHeader");
 
     // Card Body (contains tasks)
-    const cardBody = document.createElement("ul");
-    cardBody.classList.add("cardBody");
+    const cardTasks = document.createElement("ul");
+    cardTasks.classList.add("cardTasks");
 
-    projectCard.append(cardHeader, cardBody);
+    projectCard.append(cardHeader, cardTasks);
 
     const cardTitle = document.createElement("div");
 
@@ -93,7 +93,6 @@ function createProjectCard(tabId) {
     cardWidgets.append(sortBy, actions);
     cardHeader.append(cardTitle, cardWidgets);
 
-
     if (id) {
         cardTitle.textContent = projects.find(p => p.id === id)?.title;
     } else {
@@ -103,7 +102,6 @@ function createProjectCard(tabId) {
 
 
 }
-
 
 function handleTabClick(e) {
     const navItems = document.querySelectorAll(".nav li");
@@ -126,12 +124,15 @@ function handleTabClick(e) {
     } else {
         e.target.classList.add("isActive");
         const tabId = e.target.dataset.id;
-        console.log(tabId);
-        //add content paint here
+
         createProjectCard(tabId);
         const currProject = getCurrentProject();
         paintTasksList(currProject);
-        console.log(projects);
+
+        const cardTask = document.querySelector(".cardTasks");
+
+        // cardTask.addEventListener("click", handleTaskClick);//This works here because ul was created by createProjectCard();
+
 
     }
 
@@ -140,16 +141,23 @@ function handleTabClick(e) {
 function paintTasksList(currProject) {// creates dom elements for current projects taskList items ("tasks").
 
     const tasks = currProject.getTaskList();
-    const cardBody = document.querySelector(".cardBody");
-    cardBody.textContent = "";
+    const cardTasks = document.querySelector(".cardTasks");
+    cardTasks.textContent = "";
 
     for (let curTask = 0; curTask < tasks.length; curTask++) {
         const lI = document.createElement("li");
         lI.innerText = tasks[curTask].title;
-        cardBody.appendChild(lI);
-        // console.log(curTask.title);
-
+        cardTasks.appendChild(lI);
     }
+
+}
+
+function handleTaskClick(e) {
+    const li = e.target.closest("li");
+
+    if (!li) return;
+
+    console.log("you clicked the a task");
 
 }
 
@@ -166,10 +174,9 @@ function getCurrentProject() {
 
 }
 
-function handlePlusClick() { 
+function handlePlusClick() {
     const currProject = getCurrentProject();
-    const newTaskTitle = promptForTitle();
-    currProject.newTask(newTaskTitle);
+    currProject.newTask(promptForTitle());
     console.log(currProject);
     console.log(currProject.tasksCount());
     paintTasksList(currProject);
@@ -177,6 +184,9 @@ function handlePlusClick() {
 
 function init() {
     nav.addEventListener("click", handleTabClick);
+    plusButton.addEventListener("click", handlePlusClick);
+    content.addEventListener("click", handleTaskClick);
+
 
     // Creates Default tabs and card (except +New - hard coded.)
     addStarTab();
@@ -184,7 +194,9 @@ function init() {
     createProjectCard(); // Default card in dom - sources projects array
     addTab(); // My tasks tab
 
-    plusButton.addEventListener("click", handlePlusClick);
+
+
+
 }
 
 export { init };
