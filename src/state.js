@@ -18,6 +18,6 @@ function promptForTitle() {
     return prompt("Title: ");
 }
 
-export { getProjectsCount, createProject, promptForTitle, projects, starred };
+export { getProjectsCount, createProject, promptForTitle, projects, starred, completedTasks };
 
 

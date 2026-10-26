@@ -1,6 +1,6 @@
 // dom.js
 
-import { getProjectsCount, createProject, promptForTitle, projects, starred } from "./state.js";
+import { getProjectsCount, createProject, promptForTitle,completedTasks, projects, starred } from "./state.js";
 
 // SELECTORS
 const projectCount = document.querySelector(".projectCount");
@@ -31,12 +31,12 @@ function addTab() {
 }
 
 function addStarTab() {
-    const button = document.createElement("li");
-    button.textContent = "star";
-    button.dataset.id = "star";
-    button.classList.add("star", "material-symbols-outlined");
+    const starTab = document.createElement("li");
+    starTab.textContent = "star";
+    starTab.dataset.id = "star";
+    starTab.classList.add("star", "material-symbols-outlined");
     const parent = document.querySelector(".nav");
-    parent.insertAdjacentElement("afterbegin", button);
+    parent.insertAdjacentElement("afterbegin", starTab);
 }
 
 function createStarCard() {
@@ -71,12 +71,13 @@ function createProjectCard(tabId) {
     cardHeader.classList.add("cardHeader");
 
     // Card Body (contains tasks)
-    const cardTasks = document.createElement("ul");
+    const cardTasks = document.createElement("div");
     cardTasks.classList.add("cardTasks");
 
     projectCard.append(cardHeader, cardTasks);
 
     const cardTitle = document.createElement("div");
+    cardTitle.classList.add("cardTitle");
 
     // Widgets container
     const cardWidgets = document.createElement("div");
@@ -129,8 +130,6 @@ function handleTabClick(e) {
         const currProject = getCurrentProject();
         paintTasksList(currProject);
 
-        const cardTask = document.querySelector(".cardTasks");
-
         // cardTask.addEventListener("click", handleTaskClick);//This works here because ul was created by createProjectCard();
 
 
@@ -145,9 +144,36 @@ function paintTasksList(currProject) {// creates dom elements for current projec
     cardTasks.textContent = "";
 
     for (let curTask = 0; curTask < tasks.length; curTask++) {
-        const lI = document.createElement("li");
-        lI.innerText = tasks[curTask].title;
-        cardTasks.appendChild(lI);
+        const taskContainer = document.createElement("div");
+        taskContainer.classList.add("taskContainer");
+        taskContainer.dataset.id = tasks[curTask].id;
+
+        const containerLeft = document.createElement("div");
+        containerLeft.classList.add("containerLeft");
+
+        const containerMiddle = document.createElement("div");
+        containerMiddle.classList.add("containerMiddle");
+
+        const containerRight = document.createElement("div");
+        containerRight.classList.add("containerRight");
+
+        const circle = document.createElement("button");
+        circle.classList.add("material-symbols-outlined", "circle");
+        circle.textContent = "circle";
+
+        const taskTitle = document.createElement("button");
+        taskTitle.classList.add("taskTitle");
+        taskTitle.textContent = tasks[curTask].title;
+        
+        const star = document.createElement("button");
+        star.textContent = "star";
+        star.classList.add("material-symbols-outlined", "starButton");
+
+        containerLeft.append(circle);
+        containerMiddle.append(taskTitle);
+        containerRight.append(star);
+        taskContainer.append(containerLeft, containerMiddle, containerRight);
+        cardTasks.append(taskContainer);
     }
 
 }
@@ -175,6 +201,7 @@ function getCurrentProject() {
 }
 
 function handlePlusClick() {
+
     const currProject = getCurrentProject();
     currProject.newTask(promptForTitle());
     console.log(currProject);

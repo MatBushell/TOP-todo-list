@@ -88,8 +88,8 @@ Task.prototype.getPriority = function () {
     return this.priority;
 };
 
-Task.prototype.setCompleted = function (completed) {
-    return this.completed = completed;
+Task.prototype.toggleCompleted = function (completed) {
+    return this.completed = !completed;
 };
 
 Task.prototype.getCompleted = function () {
