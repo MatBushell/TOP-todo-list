@@ -130,9 +130,6 @@ function handleTabClick(e) {
         const currProject = getCurrentProject();
         paintTasksList(currProject);
 
-        // cardTask.addEventListener("click", handleTaskClick);//This works here because ul was created by createProjectCard();
-
-
     }
 
 }
@@ -157,9 +154,9 @@ function paintTasksList(currProject) {// creates dom elements for current projec
         const containerRight = document.createElement("div");
         containerRight.classList.add("containerRight");
 
-        const circle = document.createElement("button");
-        circle.classList.add("material-symbols-outlined", "circle");
-        circle.textContent = "circle";
+        const circleButton = document.createElement("button");
+        circleButton.classList.add("material-symbols-outlined", "circleButton");
+        circleButton.textContent = "circle";
 
         const taskTitle = document.createElement("button");
         taskTitle.classList.add("taskTitle");
@@ -169,7 +166,7 @@ function paintTasksList(currProject) {// creates dom elements for current projec
         star.textContent = "star";
         star.classList.add("material-symbols-outlined", "starButton");
 
-        containerLeft.append(circle);
+        containerLeft.append(circleButton);
         containerMiddle.append(taskTitle);
         containerRight.append(star);
         taskContainer.append(containerLeft, containerMiddle, containerRight);
@@ -178,13 +175,26 @@ function paintTasksList(currProject) {// creates dom elements for current projec
 
 }
 
-function handleTaskClick(e) {
-    const li = e.target.closest("li");
+function completeTask(e) {
+    const circleButton = e.target.closest(".circleButton");
+    if (!circleButton) return;
+    console.log("You completed a task!");
+}
 
-    if (!li) return;
-
+function editTask(e) {
+    const taskTitle = e.target.closest(".taskTitle");
+    if (!taskTitle) return;
+    const editTaskDialog = document.querySelector(".editTaskDialog");
+    editTaskDialog.showModal();
     console.log("you clicked the a task");
 
+
+}
+
+function starTask(e) {
+    const star = e.target.closest(".starButton");
+    if (!star) return;
+    console.log("You clicked the star!");
 }
 
 function getCurrentProject() {
@@ -212,7 +222,9 @@ function handlePlusClick() {
 function init() {
     nav.addEventListener("click", handleTabClick);
     plusButton.addEventListener("click", handlePlusClick);
-    content.addEventListener("click", handleTaskClick);
+    content.addEventListener("click", editTask);
+    content.addEventListener("click", completeTask);
+    content.addEventListener("click", starTask);
 
 
     // Creates Default tabs and card (except +New - hard coded.)

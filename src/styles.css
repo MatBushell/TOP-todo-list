@@ -170,3 +170,40 @@ button {
     font-variation-settings:
         'FILL' 1
 }
+
+.editTaskDialog {
+    display: flex;
+    flex-direction: column;
+    width: 750px;
+    height: 30%;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    corner-shape: round;
+
+}
+
+.editTaskDialogHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskTitleTextbox {
+    color: white;
+    background-color: black;
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+.taskDetailsContainer {
+    display: flex;
+}
+
+#taskDetails {
+    color: white;
+    background-color: black;
+    border: none;
+    outline: none;
+    resize: none;
+}
