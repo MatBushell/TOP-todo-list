@@ -29,8 +29,35 @@
             </ul>
         </header>
         <div class="content"></div>
+        <button type="button" class="addButton material-symbols-outlined">add</button>
     </div>
-    <dialog class="editTaskDialog">
+
+    <dialog class="editTaskDialog" id="addTaskDialog">
+        <form>
+            <div class="editTaskDialogHeader">
+                <div class="editTaskHeaderLeft">
+                    <button type="submit" value="cancel" formmethod="dialog" class="taskCancelButton material-symbols-outlined">arrow_back</button>
+                </div>
+                <div class="editTaskHeaderRight">
+                    <div class="material-symbols-outlined">star</div>
+                    <div class="material-symbols-outlined">more_vert</div>
+                </div>
+            </div>
+            <button type="button" class="moveTaskContainer" popovertarget="moveTaskPopover">
+                <div class="moveTask">My Tasks</div>
+                <div class="moveTaskArrow material-symbols-outlined">arrow_drop_down</div>
+            </button>
+            <div popover id="moveTaskPopover"><span class="moveTaskPopoverTitle">Move task to</span>
+            <ul class="popoverProjectList"></ul></div>
+            <textarea name="taskTitle" id="" class="taskTitleTextbox" placeholder="...title"></textarea>
+            <div class="taskDetailsContainer">
+                <label for="taskDetails" class="material-symbols-outlined">notes</label>
+                <textarea name="taskDetails" id="taskDetails" placeholder="...details"></textarea>
+                <dialog class="addDeadline"><span class="material-symbols-outlined">target_check</span>Add Deadline</dialog>
+            </div>
+        </form>
+    </dialog>
+    <!-- <dialog class="editTaskDialog">
         <div class="editTaskDialogHeader">
             <div class="editTaskHeaderLeft">
                 <div class="material-symbols-outlined">arrow_back</div>
@@ -40,14 +67,17 @@
                 <div class="material-symbols-outlined">more_vert</div>
             </div>
         </div>
-        <dialolg class="moveTask">My Tasks<span class=" material-symbols-outlined">arrow_drop_down</span>
-        </dialolg>
+        <div class="moveTaskContainer">
+            <div class="moveTask">My Tasks</div>
+            <div class="moveTaskArrow material-symbols-outlined">arrow_drop_down</div>
+        </div>
         <textarea name="taskTitle" id="" class="taskTitleTextbox" placeholder="...title"></textarea>
         <div class="taskDetailsContainer">
             <label for="taskDetails" class="material-symbols-outlined">notes</label>
             <textarea name="taskDetails" id="taskDetails" placeholder="...details"></textarea>
+            <dialog class="addDeadline"><span class="material-symbols-outlined">target_check</span>Add Deadline</dialog>
         </div>
-    </dialog>
+    </dialog> -->
 
 </body>
 

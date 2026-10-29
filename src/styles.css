@@ -151,7 +151,7 @@ button {
     text-align: center;
 }
 
-.add {
+.addButton {
     position: absolute;
     /* top: 90; */
     bottom: 2%;
@@ -171,7 +171,16 @@ button {
         'FILL' 1
 }
 
-.editTaskDialog {
+
+.taskCancelButton {
+    color: white;
+    padding: 0px;
+    /* line-height: 1; */
+}
+
+
+
+.editTaskDialog[open] {
     display: flex;
     flex-direction: column;
     width: 750px;
@@ -206,4 +215,28 @@ button {
     border: none;
     outline: none;
     resize: none;
+}
+
+.moveTaskContainer {
+    display: flex;
+}
+
+#moveTaskPopover:popover-open {
+    display: flex;
+    background-color: rgb(229, 229, 215);
+    outline: none;
+    border: none;
+    corner-shape: round;
+    border-radius: 15px;
+    width: 100%;
+    height: 75%;
+
+    position: relative;
+    top: 25%;
+}
+
+.addDeadline {
+    background-color: red;
+    color: white;
+    outline: 1px white;
 }

@@ -8,14 +8,8 @@ const appContainer = document.querySelector(".appContainer");
 const content = document.querySelector(".content");
 const stared = document.querySelector(".starred");
 const nav = document.querySelector(".nav");
-
-
-
-
-const plusButton = document.createElement("button");
-plusButton.textContent = "add";
-plusButton.classList.add("add", "material-symbols-outlined", "plusButton");
-appContainer.append(plusButton);
+const plusButton = document.querySelector(".addButton");
+const addTaskDialog = document.getElementById("addTaskDialog");
 
 function clearContentElement() {
     return content.textContent = undefined;
@@ -212,11 +206,14 @@ function getCurrentProject() {
 
 function handlePlusClick() {
 
-    const currProject = getCurrentProject();
-    currProject.newTask(promptForTitle());
-    console.log(currProject);
-    console.log(currProject.tasksCount());
-    paintTasksList(currProject);
+    // const addTask = document.getElementById("addTaskDialog");
+    addTaskDialog.showModal();
+
+    // const currProject = getCurrentProject();
+    // currProject.newTask(promptForTitle());
+    // console.log(currProject);
+    // console.log(currProject.tasksCount());
+    // paintTasksList(currProject);
 }
 
 function init() {
