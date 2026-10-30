@@ -151,7 +151,7 @@ button {
     text-align: center;
 }
 
-.addButton {
+.addTaskButton {
     position: absolute;
     /* top: 90; */
     bottom: 2%;
@@ -180,7 +180,7 @@ button {
 
 
 
-.editTaskDialog[open] {
+.addTaskDialog[open] {
     display: flex;
     flex-direction: column;
     width: 750px;
@@ -192,7 +192,7 @@ button {
 
 }
 
-.editTaskDialogHeader {
+.addTaskDialogHeader {
     display: flex;
     justify-content: space-between;
 }

@@ -1,6 +1,6 @@
 // dom.js
 
-import { getProjectsCount, createProject, promptForTitle,completedTasks, projects, starred } from "./state.js";
+import { getProjectsCount, createProject, promptForTitle, completedTasks, projects, starred } from "./state.js";
 
 // SELECTORS
 const projectCount = document.querySelector(".projectCount");
@@ -8,8 +8,10 @@ const appContainer = document.querySelector(".appContainer");
 const content = document.querySelector(".content");
 const stared = document.querySelector(".starred");
 const nav = document.querySelector(".nav");
-const plusButton = document.querySelector(".addButton");
+const plusButton = document.querySelector(".addTaskButton");
 const addTaskDialog = document.getElementById("addTaskDialog");
+const addTaskForm = document.getElementById("addTaskForm");
+const cancelTaskButton = document.querySelector(".taskCancelButton");
 
 function clearContentElement() {
     return content.textContent = undefined;
@@ -155,7 +157,7 @@ function paintTasksList(currProject) {// creates dom elements for current projec
         const taskTitle = document.createElement("button");
         taskTitle.classList.add("taskTitle");
         taskTitle.textContent = tasks[curTask].title;
-        
+
         const star = document.createElement("button");
         star.textContent = "star";
         star.classList.add("material-symbols-outlined", "starButton");
@@ -216,12 +218,35 @@ function handlePlusClick() {
     // paintTasksList(currProject);
 }
 
+function cancelTask() {
+    // e.preventDefault();
+    addTaskDialog.close();
+    addTaskForm.reset();
+    console.log("Cancel");
+}
+
+function handleTaskSave(e) {
+    e.preventDefault();
+    const project = getCurrentProject();
+    const formData = new FormData(addTaskForm);
+    const formObject = Object.fromEntries(formData.entries());
+    // const title = formData.get("taskTitle");
+    const title = formObject.taskTitle;
+    // console.log(formObject);
+
+    console.log(`You saved "${title}" to the "${project.title}" project! `);
+    addTaskForm.reset();
+    addTaskDialog.close();
+}
+
 function init() {
     nav.addEventListener("click", handleTabClick);
     plusButton.addEventListener("click", handlePlusClick);
+    addTaskForm.addEventListener("submit", handleTaskSave);
     content.addEventListener("click", editTask);
     content.addEventListener("click", completeTask);
     content.addEventListener("click", starTask);
+    cancelTaskButton.addEventListener("click", cancelTask);
 
 
     // Creates Default tabs and card (except +New - hard coded.)
