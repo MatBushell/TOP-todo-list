@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>toodoo</title>
-    <!-- Preconnect first -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!--Fonts and icons -->
@@ -32,29 +32,40 @@
         <button type="button" class="addTaskButton material-symbols-outlined">add</button>
     </div>
 
-    <dialog class="addTaskDialog" id="addTaskDialog">
-        <form id="addTaskForm" method="dialog">
-            <div class="addTaskDialogHeader">
-                <div class="addTaskHeaderLeft">
-                    <button type="button" class="taskCancelButton material-symbols-outlined">arrow_back</button>
+    <dialog class="addProjectDialog" id="addProjectDialog" closedby="any">
+        <form id="addProjectForm" method="dialog">
+            <div class="addProjectHeader">
+                <div class="cancelAndTitle">
+                    <button type="button" class="canelNewProject material-symbols-outlined">close</button>
+                    <div class="createNewListHeading">Create new list</div>
                 </div>
-                <div class="addTaskHeaderRight">
-                    <div class="material-symbols-outlined">star</div>
-                    <div class="material-symbols-outlined">more_vert</div>
-                </div>
+                <button type="button" class="saveNewProject">Done</button>
             </div>
-            <button type="button" class="moveTaskContainer" popovertarget="moveTaskPopover">
+            <input type="text" id="newProjectTitle" required minlength="1" maxlength="100" placeholder="Enter list title">
+        </form>
+    </dialog>
+
+    <dialog class="addTaskDialog" id="addTaskDialog" closedby="any">
+        <form id="addTaskForm" method="dialog">
+            <!--Move Task Popover-->
+            <!-- <button type="button" class="moveTaskContainer" popovertarget="moveTaskPopover">
                 <div class="moveTask">My Tasks</div>
                 <div class="moveTaskArrow material-symbols-outlined">arrow_drop_down</div>
-            </button>
-            <div popover id="moveTaskPopover"><span class="moveTaskPopoverTitle">Move task to</span>
-            <ul class="popoverProjectList"></ul></div>
-            <textarea name="taskTitle" id="" class="taskTitleTextbox" placeholder="...title"></textarea>
-            <div class="taskDetailsContainer">
-                <label for="taskDetails" class="material-symbols-outlined">notes</label>
-                <textarea name="taskDetails" id="taskDetails" placeholder="...details"></textarea>
+            </button> -->
+            <!-- <div popover id="moveTaskPopover"><span class="moveTaskPopoverTitle">Move task to</span>
+                <ul class="popoverProjectList"></ul>
+            </div> -->
+
+            <!-- Task parameters -->
+            <textarea name="taskTitle" id="" class="taskTitleTextbox" placeholder="New Task"></textarea>
+            <div class="taskParametersContainer">
+                <div class="detailsCalStar">
+                    <button type="button" class="material-symbols-outlined">notes</button>
+                    <button type="button" class="material-symbols-outlined">schedule</button>
+                    <button type="button" class="material-symbols-outlined">star</button>
+                </div>
+                <button type="submit">Save</button>
             </div>
-            <button type="submit">Save</button>
         </form>
     </dialog>
     <!-- <dialog class="editTaskDialog">

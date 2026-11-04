@@ -3,6 +3,15 @@ body {
     background-color: black;
 }
 
+button {
+    padding: 0px;
+    cursor: pointer;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
 .appContainer {
     position: relative;
     display: flex;
@@ -125,12 +134,6 @@ li:hover {
     display: flex;
 }
 
-button {
-    cursor: pointer;
-    color: white;
-    background-color: transparent;
-    border: none;
-}
 
 .circle {
     color: rgb(255, 255, 255);
@@ -176,6 +179,26 @@ button {
     color: white;
     padding: 0px;
     /* line-height: 1; */
+}
+
+.addProjectDialog[open] {
+    display: flex;
+    flex-direction: column;
+    width: 750px;
+    height: 30%;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    corner-shape: round;
+}
+
+.addProjectHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancelAndTitle {
+    display: flex;
 }
 
 

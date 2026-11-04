@@ -1,6 +1,7 @@
 // dom.js
 
 import { getProjectsCount, createProject, promptForTitle, completedTasks, projects, starred } from "./state.js";
+import { Task } from "./model.js";
 
 // SELECTORS
 const projectCount = document.querySelector(".projectCount");
@@ -10,6 +11,7 @@ const stared = document.querySelector(".starred");
 const nav = document.querySelector(".nav");
 const plusButton = document.querySelector(".addTaskButton");
 const addTaskDialog = document.getElementById("addTaskDialog");
+const addProjectDialog = document.getElementById("addProjectDialog");
 const addTaskForm = document.getElementById("addTaskForm");
 const cancelTaskButton = document.querySelector(".taskCancelButton");
 
@@ -108,12 +110,12 @@ function handleTabClick(e) {
     });
 
     if (e.target.id === "create-project") {
-        const newTitle = promptForTitle();
-        if (newTitle) {
-            createProject(newTitle);
-            addTab();
-            createProjectCard();
-        }
+        addProjectDialog.showModal();
+        // if (newTitle) {
+        //     createProject(newTitle);
+        //     addTab();
+        //     createProjectCard();
+        // }
     } else if (e.target.dataset.id === "star") {
         e.target.classList.add("isActive");
         createStarCard();
@@ -207,46 +209,44 @@ function getCurrentProject() {
 }
 
 function handlePlusClick() {
-
-    // const addTask = document.getElementById("addTaskDialog");
     addTaskDialog.showModal();
-
-    // const currProject = getCurrentProject();
-    // currProject.newTask(promptForTitle());
-    // console.log(currProject);
-    // console.log(currProject.tasksCount());
-    // paintTasksList(currProject);
 }
 
-function cancelTask() {
-    // e.preventDefault();
-    addTaskDialog.close();
-    addTaskForm.reset();
-    console.log("Cancel");
-}
+// function cancelTask() {
+//     // e.preventDefault();
+//     addTaskDialog.close();
+//     addTaskForm.reset();
+//     console.log("Cancel");
+// }
 
 function handleTaskSave(e) {
     e.preventDefault();
-    const project = getCurrentProject();
+    const currProject = getCurrentProject();
     const formData = new FormData(addTaskForm);
     const formObject = Object.fromEntries(formData.entries());
-    // const title = formData.get("taskTitle");
-    const title = formObject.taskTitle;
-    // console.log(formObject);
+    const { id, taskTitle: title, details, dueDate, starred } = formObject;
+    const newTask = new Task(title, details, dueDate, starred);
+    console.log(title);
+    currProject.pushTask(newTask);
+    console.log(projects);
 
-    console.log(`You saved "${title}" to the "${project.title}" project! `);
+
     addTaskForm.reset();
     addTaskDialog.close();
+    paintTasksList(currProject);
+
 }
 
 function init() {
     nav.addEventListener("click", handleTabClick);
     plusButton.addEventListener("click", handlePlusClick);
     addTaskForm.addEventListener("submit", handleTaskSave);
+    addTaskDialog.addEventListener("close", () => { addTaskForm.reset(); });
+    addProjectDialog.addEventListener("close", () => { addProjectForm.reset(); });
     content.addEventListener("click", editTask);
     content.addEventListener("click", completeTask);
     content.addEventListener("click", starTask);
-    cancelTaskButton.addEventListener("click", cancelTask);
+    // cancelTaskButton.addEventListener("click", cancelTask);
 
 
     // Creates Default tabs and card (except +New - hard coded.)

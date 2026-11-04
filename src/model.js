@@ -31,15 +31,18 @@ Project.prototype.getTaskList = function () {
 
 
 
-function Task(title) {
+function Task(title, details = "", dueDate = null, starred = false) {
     if (!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor.");
+        throw new Error("You must use the 'new' operator to call the constructor.");
+    }
+    if (!title || title.trim() === "") {
+        throw new Error("You must include a title");
     }
     this.id = crypto.randomUUID();
-    this.title = title;
-    this.details = undefined;
-    this.dueDate = undefined;
-    this.priority = undefined;
+    this.title = title.trim();
+    this.details = details;
+    this.dueDate = dueDate;
+    this.starred = starred;
     this.completed = false;
     this.subtasks = [];
 }
@@ -80,12 +83,12 @@ Task.prototype.getDuedate = function () {
     return this.dueDate;
 };
 
-Task.prototype.setPriority = function (priority) {
-    return this.priority = priority;
+Task.prototype.setStarred = function (starred) {
+    return this.starred = starred;
 };
 
-Task.prototype.getPriority = function () {
-    return this.priority;
+Task.prototype.getStarred = function () {
+    return this.starred;
 };
 
 Task.prototype.toggleCompleted = function (completed) {
