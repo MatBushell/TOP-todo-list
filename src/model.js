@@ -4,8 +4,11 @@ function Project(title) {
     if (!new.target) {
         throw Error("You must use the 'new' operator to call the constructor.");
     }
+        if (!title || title.trim() === "") {
+        throw new Error("You must include a title");
+    }
     this.id = crypto.randomUUID();
-    this.title = title;
+    this.title = title.trim();
     this.taskList = [];
 }
 // #region PROJECT METHODS

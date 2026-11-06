@@ -1,7 +1,7 @@
 // dom.js
 
 import { getProjectsCount, createProject, promptForTitle, completedTasks, projects, starred } from "./state.js";
-import { Task } from "./model.js";
+import { Project, Task } from "./model.js";
 
 // SELECTORS
 const projectCount = document.querySelector(".projectCount");
@@ -9,11 +9,15 @@ const appContainer = document.querySelector(".appContainer");
 const content = document.querySelector(".content");
 const stared = document.querySelector(".starred");
 const nav = document.querySelector(".nav");
+// Create new task selectors
 const plusButton = document.querySelector(".addTaskButton");
 const addTaskDialog = document.getElementById("addTaskDialog");
-const addProjectDialog = document.getElementById("addProjectDialog");
 const addTaskForm = document.getElementById("addTaskForm");
-const cancelTaskButton = document.querySelector(".taskCancelButton");
+// Create new list / project selectors
+const addProjectDialog = document.getElementById("addProjectDialog");
+const addProjectForm = document.getElementById("addProjectForm");
+const cancelNewProject = document.querySelector(".cancelNewProject");
+
 
 function clearContentElement() {
     return content.textContent = undefined;
@@ -102,25 +106,48 @@ function createProjectCard(tabId) {
 
 }
 
-function handleTabClick(e) {
-    const navItems = document.querySelectorAll(".nav li");
+function handleNewListDone(e) {
+    e.preventDefault();
+    // const currProject = getCurrentProject();
+    // console.log(currProject);
+    // console.log("It's working?");
+    const formData = new FormData(addProjectForm);
+    const formObject = Object.fromEntries(formData.entries());
+    const { id, projectTitle: title, taskList } = formObject;
+    createProject(title);
+    console.log(projects);
+    addProjectForm.reset();
+    addProjectDialog.close();
 
+}
+
+function clearActiveTabs() {
+    const navItems = document.querySelectorAll(".nav li");
     navItems.forEach(item => {
         item.classList.remove("isActive");
     });
+}
+
+function handleTabClick(e) {
+    // const navItems = document.querySelectorAll(".nav li");
+    const currProject = getCurrentProject();
+
+    // navItems.forEach(item => {
+    //     item.classList.remove("isActive");
+    // });
 
     if (e.target.id === "create-project") {
+        // e.target.classList.add("isActive");
         addProjectDialog.showModal();
-        // if (newTitle) {
-        //     createProject(newTitle);
         //     addTab();
         //     createProjectCard();
-        // }
     } else if (e.target.dataset.id === "star") {
+        clearActiveTabs();
         e.target.classList.add("isActive");
         createStarCard();
         // console.log("you clicked the star");
     } else {
+        clearActiveTabs();
         e.target.classList.add("isActive");
         const tabId = e.target.dataset.id;
 
@@ -237,18 +264,31 @@ function handleTaskSave(e) {
 
 }
 
+function handleTaskCancel() {
+    addProjectForm.reset();
+    addProjectDialog.close();
+
+}
+
 function init() {
     nav.addEventListener("click", handleTabClick);
+    // Task listeners
     plusButton.addEventListener("click", handlePlusClick);
     addTaskForm.addEventListener("submit", handleTaskSave);
     addTaskDialog.addEventListener("close", () => { addTaskForm.reset(); });
-    addProjectDialog.addEventListener("close", () => { addProjectForm.reset(); });
     content.addEventListener("click", editTask);
     content.addEventListener("click", completeTask);
     content.addEventListener("click", starTask);
+    // Project Listeners
+    addProjectDialog.addEventListener("submit", (e) => {
+        console.log(e.type, e.target);
+        handleNewListDone(e)
+    });
+    cancelNewProject.addEventListener("click", handleTaskCancel);
+
+    // addProjectForm.addEventListener("click", handleNewListDone);
+
     // cancelTaskButton.addEventListener("click", cancelTask);
-
-
     // Creates Default tabs and card (except +New - hard coded.)
     addStarTab();
     createProject("My Tasks"); //Object in projects array

@@ -36,12 +36,12 @@
         <form id="addProjectForm" method="dialog">
             <div class="addProjectHeader">
                 <div class="cancelAndTitle">
-                    <button type="button" class="canelNewProject material-symbols-outlined">close</button>
+                    <button type="submit" value="cancel" class="cancelNewProject material-symbols-outlined">close</button>
                     <div class="createNewListHeading">Create new list</div>
                 </div>
-                <button type="button" class="saveNewProject">Done</button>
+                <button type="submit" class="saveNewProject">Done</button>
             </div>
-            <input type="text" id="newProjectTitle" required minlength="1" maxlength="100" placeholder="Enter list title">
+            <input type="text" name="projectTitle" id="newProjectTitle" required minlength="1" maxlength="100" placeholder="Enter list title">
         </form>
     </dialog>
 
