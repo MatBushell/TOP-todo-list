@@ -115,6 +115,10 @@ function handleNewListDone(e) {
     const formObject = Object.fromEntries(formData.entries());
     const { id, projectTitle: title, taskList } = formObject;
     createProject(title);
+    clearActiveTabs();
+    addTab();
+    createProjectCard();
+    // highlightNewTab();
     console.log(projects);
     addProjectForm.reset();
     addProjectDialog.close();
@@ -128,19 +132,18 @@ function clearActiveTabs() {
     });
 }
 
+
 function handleTabClick(e) {
     // const navItems = document.querySelectorAll(".nav li");
-    const currProject = getCurrentProject();
+    // const currProject = getCurrentProject();
 
     // navItems.forEach(item => {
     //     item.classList.remove("isActive");
     // });
 
     if (e.target.id === "create-project") {
-        // e.target.classList.add("isActive");
         addProjectDialog.showModal();
-        //     addTab();
-        //     createProjectCard();
+
     } else if (e.target.dataset.id === "star") {
         clearActiveTabs();
         e.target.classList.add("isActive");
@@ -222,9 +225,13 @@ function starTask(e) {
     console.log("You clicked the star!");
 }
 
+function getActiveTabId() {
+    return document.querySelector(".isActive").dataset.id;
+}
+
 function getCurrentProject() {
     // Gets the "active" tab ID and uses it to retrieve the object from projects arr by same ID.
-    const id = document.querySelector(".isActive").dataset.id;
+    const id = getActiveTabId();
     let currProject;
     projects.forEach(function (p) {
         if (p.id === id) {
@@ -281,23 +288,15 @@ function init() {
     content.addEventListener("click", starTask);
     // Project Listeners
     addProjectDialog.addEventListener("submit", (e) => {
-        console.log(e.type, e.target);
         handleNewListDone(e)
     });
     cancelNewProject.addEventListener("click", handleTaskCancel);
 
-    // addProjectForm.addEventListener("click", handleNewListDone);
-
-    // cancelTaskButton.addEventListener("click", cancelTask);
     // Creates Default tabs and card (except +New - hard coded.)
     addStarTab();
     createProject("My Tasks"); //Object in projects array
     createProjectCard(); // Default card in dom - sources projects array
     addTab(); // My tasks tab
-
-
-
-
 }
 
 export { init };

@@ -55,6 +55,7 @@ li {
     flex: 1;
     background-color: transparent;
     cursor: pointer;
+    padding-bottom: 5px;
 }
 
 li:hover {
