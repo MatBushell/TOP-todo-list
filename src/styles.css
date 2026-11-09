@@ -193,6 +193,29 @@ li:hover {
     corner-shape: round;
 }
 
+.editProjectDialog[open] {
+    display: flex;
+    flex-direction: column;
+    width: 750px;
+    height: 30%;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    corner-shape: round;
+}
+
+.renameList {
+    text-align: left;
+}
+.deleteList {
+    text-align: left;
+}
+
+.deleteList:disabled {
+    color: grey;
+}
+
+
 .addProjectHeader {
     display: flex;
     justify-content: space-between;

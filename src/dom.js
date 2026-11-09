@@ -17,7 +17,50 @@ const addTaskForm = document.getElementById("addTaskForm");
 const addProjectDialog = document.getElementById("addProjectDialog");
 const addProjectForm = document.getElementById("addProjectForm");
 const cancelNewProject = document.querySelector(".cancelNewProject");
+const addProjectTextInput = document.getElementById("newProjectTitle");
+// Edit list / project selectors
+const editProjectDialog = document.getElementById("editProjectDialog");
+const renameProjectDialog = document.getElementById("renameProjectDialog");
+const renameProjectForm = document.getElementById("renameProjectForm");
+const deleteList = document.querySelector(".deleteList");
+const renameList = document.querySelector(".renameList");
+// default project id
+let myTasksId;
 
+function editProject(e) {
+    const currProject = getCurrentProject();
+    if (currProject.id === myTasksId) {
+        deleteList.disabled = true;
+    } else {
+        deleteList.disabled = false;
+    }
+    const editMenu = e.target.closest(".actions");
+    if (!editMenu) return;
+    editProjectDialog.showModal();
+}
+
+function renameProject(e) {
+    e.preventDefault();
+    const currProject = getCurrentProject();
+    const id = currProject.id;
+    const formData = new FormData(renameProjectForm);
+    // const formObject = Object.fromEntries(formData.entries());
+    const newTitle = formData.get("projectTitle");
+    console.log(newTitle);
+    currProject.rename(newTitle);
+    const currentTab = document.querySelector(".isActive");
+    currentTab.textContent = currProject.getTitle();
+
+    // currProject.pushTask(newTask);
+    console.log(projects);
+
+
+    renameProjectForm.reset();
+    renameProjectDialog.close();
+    createProjectCard(id);
+    paintTasksList(currProject);
+
+}
 
 function clearContentElement() {
     return content.textContent = undefined;
@@ -132,7 +175,6 @@ function clearActiveTabs() {
     });
 }
 
-
 function handleTabClick(e) {
     // const navItems = document.querySelectorAll(".nav li");
     // const currProject = getCurrentProject();
@@ -246,13 +288,6 @@ function handlePlusClick() {
     addTaskDialog.showModal();
 }
 
-// function cancelTask() {
-//     // e.preventDefault();
-//     addTaskDialog.close();
-//     addTaskForm.reset();
-//     console.log("Cancel");
-// }
-
 function handleTaskSave(e) {
     e.preventDefault();
     const currProject = getCurrentProject();
@@ -271,12 +306,6 @@ function handleTaskSave(e) {
 
 }
 
-function handleTaskCancel() {
-    addProjectForm.reset();
-    addProjectDialog.close();
-
-}
-
 function init() {
     nav.addEventListener("click", handleTabClick);
     // Task listeners
@@ -287,16 +316,23 @@ function init() {
     content.addEventListener("click", completeTask);
     content.addEventListener("click", starTask);
     // Project Listeners
-    addProjectDialog.addEventListener("submit", (e) => {
-        handleNewListDone(e)
+    addProjectForm.addEventListener("submit", (e) => {
+        handleNewListDone(e);
     });
-    cancelNewProject.addEventListener("click", handleTaskCancel);
-
+    content.addEventListener("click", editProject);
+    renameList.addEventListener("click", () => {
+        editProjectDialog.close();
+        renameProjectDialog.showModal();
+    });
+    renameProjectForm.addEventListener("submit", renameProject);
     // Creates Default tabs and card (except +New - hard coded.)
     addStarTab();
     createProject("My Tasks"); //Object in projects array
     createProjectCard(); // Default card in dom - sources projects array
     addTab(); // My tasks tab
+    // get myTasksId
+    const myTasks = getCurrentProject();
+    myTasksId = myTasks.id;
 }
 
 export { init };

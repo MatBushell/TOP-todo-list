@@ -31,31 +31,41 @@
         <div class="content"></div>
         <button type="button" class="addTaskButton material-symbols-outlined">add</button>
     </div>
-
+    <!-- Add Project -->
     <dialog class="addProjectDialog" id="addProjectDialog" closedby="any">
-        <form id="addProjectForm" method="dialog">
+        <form id="addProjectForm">
             <div class="addProjectHeader">
                 <div class="cancelAndTitle">
-                    <button type="submit" value="cancel" class="cancelNewProject material-symbols-outlined">close</button>
+                    <button type="submit" value="cancel"
+                        class="cancelNewProject material-symbols-outlined">close</button>
                     <div class="createNewListHeading">Create new list</div>
                 </div>
                 <button type="submit" class="saveNewProject">Done</button>
             </div>
-            <input type="text" name="projectTitle" id="newProjectTitle" required minlength="1" maxlength="100" placeholder="Enter list title">
+            <input type="text" name="projectTitle" id="newProjectTitle" required minlength="1" maxlength="100"
+                placeholder="Enter list title" autofocus />
         </form>
     </dialog>
-
+    <!-- Edit Project -->
+    <!-- Menu -->
+    <dialog class="editProjectDialog" id="editProjectDialog" closedby="any">
+        <button type="button" class="renameList">Rename List</button>
+        <button type="button" class="deleteList">Delete List</button>
+    </dialog>
+    <!-- Rename form -->
+    <dialog class="renameProjectDialog" id="renameProjectDialog" closedby="any">
+        <form id="renameProjectForm">
+            <div class="renameProjectHeader">
+                <button type="button" class="cancelRenameProject material-symbols-outlined">close</button>
+                <div class="renameListHeading">Rename list</div>
+                <button type="submit" class="renameListDone">Done</button>
+            </div>
+            <input type="text" name="projectTitle" class="renameProjectInput"></input>
+        </form>
+    </dialog>
+    <!-- Add Task -->
     <dialog class="addTaskDialog" id="addTaskDialog" closedby="any">
         <form id="addTaskForm" method="dialog">
-            <!--Move Task Popover-->
-            <!-- <button type="button" class="moveTaskContainer" popovertarget="moveTaskPopover">
-                <div class="moveTask">My Tasks</div>
-                <div class="moveTaskArrow material-symbols-outlined">arrow_drop_down</div>
-            </button> -->
-            <!-- <div popover id="moveTaskPopover"><span class="moveTaskPopoverTitle">Move task to</span>
-                <ul class="popoverProjectList"></ul>
-            </div> -->
-
             <!-- Task parameters -->
             <textarea name="taskTitle" id="" class="taskTitleTextbox" placeholder="New Task"></textarea>
             <div class="taskParametersContainer">
@@ -68,6 +78,7 @@
             </div>
         </form>
     </dialog>
+    <!-- Edit Task -->
     <!-- <dialog class="editTaskDialog">
         <div class="editTaskDialogHeader">
             <div class="editTaskHeaderLeft">

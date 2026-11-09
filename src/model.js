@@ -32,6 +32,10 @@ Project.prototype.getTaskList = function () {
     return this.taskList;
 }
 
+Project.prototype.rename = function (newTitle) {
+    this.title = newTitle;
+}
+
 
 
 function Task(title, details = "", dueDate = null, starred = false) {
