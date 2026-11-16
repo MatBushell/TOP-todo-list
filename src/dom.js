@@ -1,6 +1,6 @@
 // dom.js
 
-import { getProjectsCount, createProject, promptForTitle, completedTasks, projects, starred } from "./state.js";
+import { getProjectsCount, createProject, deleteProject, promptForTitle, completedTasks, projects, starred } from "./state.js";
 import { Project, Task } from "./model.js";
 
 // SELECTORS
@@ -16,6 +16,7 @@ const addTaskForm = document.getElementById("addTaskForm");
 // Create new list / project selectors
 const addProjectDialog = document.getElementById("addProjectDialog");
 const addProjectForm = document.getElementById("addProjectForm");
+// const saveNewProject = document.querySelector("saveNewProject")
 const cancelNewProject = document.querySelector(".cancelNewProject");
 const addProjectTextInput = document.getElementById("newProjectTitle");
 // Edit list / project selectors
@@ -44,7 +45,6 @@ function renameProject(e) {
     const currProject = getCurrentProject();
     const id = currProject.id;
     const formData = new FormData(renameProjectForm);
-    // const formObject = Object.fromEntries(formData.entries());
     const newTitle = formData.get("projectTitle");
     console.log(newTitle);
     currProject.rename(newTitle);
@@ -151,9 +151,6 @@ function createProjectCard(tabId) {
 
 function handleNewListDone(e) {
     e.preventDefault();
-    // const currProject = getCurrentProject();
-    // console.log(currProject);
-    // console.log("It's working?");
     const formData = new FormData(addProjectForm);
     const formObject = Object.fromEntries(formData.entries());
     const { id, projectTitle: title, taskList } = formObject;
@@ -161,7 +158,6 @@ function handleNewListDone(e) {
     clearActiveTabs();
     addTab();
     createProjectCard();
-    // highlightNewTab();
     console.log(projects);
     addProjectForm.reset();
     addProjectDialog.close();
@@ -203,6 +199,15 @@ function handleTabClick(e) {
     }
 
 }
+
+// TASK FUNCTIONS
+
+// -- NEW TASK FUNCTIONS
+
+function addDetails() {
+    const ref = document.querySelector(".taskTitleTextbox");
+}
+
 
 function paintTasksList(currProject) {// creates dom elements for current projects taskList items ("tasks").
 
@@ -319,20 +324,44 @@ function init() {
     addProjectForm.addEventListener("submit", (e) => {
         handleNewListDone(e);
     });
+    cancelNewProject.addEventListener("click", () => {
+        addProjectForm.reset();
+        addProjectDialog.close();
+    })
     content.addEventListener("click", editProject);
     renameList.addEventListener("click", () => {
         editProjectDialog.close();
         renameProjectDialog.showModal();
     });
+    // rename project
     renameProjectForm.addEventListener("submit", renameProject);
+    // delete project
+    deleteList.addEventListener("click", () => {
+        const currProject = getCurrentProject();
+        const id = currProject.id;
+        const currProjectTab = [...document.querySelectorAll(".nav li")].find(li => li.dataset.id === id);
+        const tabToLeft = currProjectTab.previousElementSibling;
+        currProjectTab.remove();
+        deleteProject(id);
+        clearActiveTabs();
+        tabToLeft.classList.add("isActive");
+        // addTab();
+        // updateTabs();
+        createProjectCard();
+        editProjectDialog.close();
+        console.log(projects);
+        paintTasksList(getCurrentProject());
+    });
     // Creates Default tabs and card (except +New - hard coded.)
     addStarTab();
     createProject("My Tasks"); //Object in projects array
     createProjectCard(); // Default card in dom - sources projects array
     addTab(); // My tasks tab
+    // updateTabs();
     // get myTasksId
     const myTasks = getCurrentProject();
     myTasksId = myTasks.id;
+    console.log(projects);
 }
 
 export { init };
