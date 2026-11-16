@@ -13,6 +13,9 @@ const nav = document.querySelector(".nav");
 const plusButton = document.querySelector(".addTaskButton");
 const addTaskDialog = document.getElementById("addTaskDialog");
 const addTaskForm = document.getElementById("addTaskForm");
+const detailsButton = document.querySelector(".detailsButton");
+const datePickerPopover = document.getElementById("datePicker");
+const schedulButton = document.querySelector(".schedulButton");
 // Create new list / project selectors
 const addProjectDialog = document.getElementById("addProjectDialog");
 const addProjectForm = document.getElementById("addProjectForm");
@@ -27,6 +30,15 @@ const deleteList = document.querySelector(".deleteList");
 const renameList = document.querySelector(".renameList");
 // default project id
 let myTasksId;
+
+function positionPopover() {
+    const rect = schedulButton.getBoundingClientRect();
+    datePickerPopover.style.position= "absolute";
+    datePickerPopover.style.margin = "0";
+    datePickerPopover.style.top = `${rect.bottom + window.scrollY + 8}px`; // 8px offset
+    datePickerPopover.style.left = `${rect.left + window.scrollX}px`
+
+}
 
 function editProject(e) {
     const currProject = getCurrentProject();
@@ -204,8 +216,19 @@ function handleTabClick(e) {
 
 // -- NEW TASK FUNCTIONS
 
-function addDetails() {
+function addDetails(e) {
+    const detailsButton = e.target.closest(".detailsButton");
+    if (!detailsButton) return;
     const ref = document.querySelector(".taskTitleTextbox");
+    const detailsTextInput = document.createElement("textarea");
+    detailsTextInput.classList.add("details");
+    detailsTextInput.name = "details";
+    detailsTextInput.rows = 5;
+    detailsTextInput.cols = 40;
+    detailsTextInput.placeholder = "Details...";
+    // detailsTextInput.value = "";
+    ref.insertAdjacentElement("afterend", detailsTextInput);
+
 }
 
 
@@ -316,10 +339,37 @@ function init() {
     // Task listeners
     plusButton.addEventListener("click", handlePlusClick);
     addTaskForm.addEventListener("submit", handleTaskSave);
-    addTaskDialog.addEventListener("close", () => { addTaskForm.reset(); });
+    addTaskDialog.addEventListener("close", () => {
+        const detailsEl = document.querySelector(".details");
+        if (detailsEl) {
+            detailsEl.remove();
+        }
+        addTaskForm.reset();
+    });
+    detailsButton.addEventListener("click", (e) => {
+        const detailsEl = document.querySelector(".details");
+        if (!detailsEl) {
+            addDetails(e);
+        } else {
+            detailsEl.remove();
+        }
+
+    });
+
+    datePickerPopover.addEventListener("beforetoggle", (e) => {
+        if (e.newState === "open") {
+            positionPopover();
+        }
+    })
+    // schedulButton.addEventListener("click", () => {
+    //     // console.log("schedule!");
+    //     datePickerPopover.togglePopover();
+
+    // })
     content.addEventListener("click", editTask);
     content.addEventListener("click", completeTask);
     content.addEventListener("click", starTask);
+
     // Project Listeners
     addProjectForm.addEventListener("submit", (e) => {
         handleNewListDone(e);

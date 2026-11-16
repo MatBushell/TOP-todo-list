@@ -70,12 +70,16 @@
             <textarea name="taskTitle" class="taskTitleTextbox" placeholder="New Task"></textarea>
             <div class="taskParametersContainer">
                 <div class="detailsCalStar">
-                    <button type="button" class="material-symbols-outlined">notes</button>
-                    <button type="button" class="material-symbols-outlined">schedule</button>
-                    <button type="button" class="material-symbols-outlined">star</button>
+                    <button type="button" class="detailsButton material-symbols-outlined">notes</button>
+                    <button type="button" popovertarget="datePicker"
+                        class="schedulButton material-symbols-outlined">schedule</button>
+                    <button type="button" class="starredButton material-symbols-outlined">star</button>
                 </div>
-                <button type="submit">Save</button>
+                <div id="datePicker" popover>
+                    <input type="date" id="dueDate" name="dueDate" class="dueDate" />
+                </div>
             </div>
+            <button type="submit" class="taskSaveButton">Save</button>
         </form>
     </dialog>
     <!-- Edit Task -->
