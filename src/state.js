@@ -3,7 +3,7 @@ import { Project, Subtask } from "./model.js";
 
 let projects = [];
 const completedTasks = [];
-const starred = ["No tasks yet..."];
+const starredArr = ["No tasks yet..."];
 
 function getProjectsCount() {
     return projects.length;
@@ -24,6 +24,6 @@ function promptForTitle() {
     return prompt("Title: ");
 }
 
-export { getProjectsCount, createProject, deleteProject, promptForTitle, projects, starred, completedTasks };
+export { getProjectsCount, createProject, deleteProject, promptForTitle, projects, starredArr, completedTasks };
 
 

@@ -142,11 +142,18 @@ li:hover {
         'FILL' 0
 }
 
-.starButton {
+.starredButton {
     color: rgb(255, 255, 255);
     align-self: flex-end;
     font-variation-settings:
         'FILL' 0
+}
+
+.starredButton.is-filled {
+    color: rgb(255, 255, 255);
+    align-self: flex-end;
+    font-variation-settings:
+        'FILL' 1
 }
 
 .taskTitle {

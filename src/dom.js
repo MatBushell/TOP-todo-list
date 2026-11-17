@@ -1,6 +1,6 @@
 // dom.js
 
-import { getProjectsCount, createProject, deleteProject, promptForTitle, completedTasks, projects, starred } from "./state.js";
+import { getProjectsCount, createProject, deleteProject, promptForTitle, completedTasks, projects, starredArr } from "./state.js";
 import { Project, Task } from "./model.js";
 
 // SELECTORS
@@ -16,6 +16,7 @@ const addTaskForm = document.getElementById("addTaskForm");
 const detailsButton = document.querySelector(".detailsButton");
 const datePickerPopover = document.getElementById("datePicker");
 const schedulButton = document.querySelector(".schedulButton");
+const starredButton = document.querySelector(".starredButton");
 // Create new list / project selectors
 const addProjectDialog = document.getElementById("addProjectDialog");
 const addProjectForm = document.getElementById("addProjectForm");
@@ -30,6 +31,7 @@ const deleteList = document.querySelector(".deleteList");
 const renameList = document.querySelector(".renameList");
 // default project id
 let myTasksId;
+
 
 function positionPopover() {
     const rect = schedulButton.getBoundingClientRect();
@@ -324,6 +326,7 @@ function handleTaskSave(e) {
     const { id, taskTitle: title, details, dueDate, starred } = formObject;
     const newTask = new Task(title, details, dueDate, starred);
     console.log(title);
+    console.log(starred);
     currProject.pushTask(newTask);
     console.log(projects);
 
@@ -345,6 +348,7 @@ function init() {
             detailsEl.remove();
         }
         addTaskForm.reset();
+        starredButton.classList.remove("is-filled");
     });
     detailsButton.addEventListener("click", (e) => {
         const detailsEl = document.querySelector(".details");
@@ -360,6 +364,14 @@ function init() {
         if (e.newState === "open") {
             positionPopover();
         }
+    });
+
+    starredButton.addEventListener("click", () => {
+        const currProject = getCurrentProject();
+        console.log(currProject.id);
+
+        starredButton.classList.toggle("is-filled");
+
     })
     // schedulButton.addEventListener("click", () => {
     //     // console.log("schedule!");

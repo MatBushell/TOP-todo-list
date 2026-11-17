@@ -90,8 +90,8 @@ Task.prototype.getDuedate = function () {
     return this.dueDate;
 };
 
-Task.prototype.setStarred = function (starred) {
-    return this.starred = starred;
+Task.prototype.toggleStarred = function (starred) {
+    return this.starred = !starred;
 };
 
 Task.prototype.getStarred = function () {
