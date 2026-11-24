@@ -278,7 +278,15 @@ function paintTasksList(currProject) {// creates dom elements for current projec
 
 function completeTask(e) {
     const circleButton = e.target.closest(".circleButton");
+    const curTask = e.target.closest(".taskContainer");
+    const id = curTask?.getAttribute("data-id");
+    const currProject = getCurrentProject();
+    const tasks = currProject.getTaskList();
+    const foundTask = tasks.find(task => task.id === id);
     if (!circleButton) return;
+    foundTask.toggleCompleted();
+    circleButton.classList.toggle("is-filled");
+    console.log(tasks[0]);
     console.log("You completed a task!");
 }
 
@@ -307,7 +315,7 @@ function starTask(e) {
     // console.log(`You clicked the star! with data-id: ${id}`);
     foundTask.toggleStarred();
     star.classList.toggle("is-filled");
-    console.log(tasks[0]);
+    // console.log(tasks[0]);
 }
 
 function getActiveTabId() {
@@ -347,6 +355,11 @@ function handleTaskSave(e) {
     addTaskForm.reset();
     addTaskDialog.close();
     paintTasksList(currProject);
+
+}
+
+function scanForCompletedTasks(e) {
+    const circleButton = e.closest(".circleButton");
 
 }
 

@@ -137,10 +137,16 @@ li:hover {
 }
 
 
-.circle {
+.circleButton {
     color: rgb(255, 255, 255);
     font-variation-settings:
         'FILL' 0
+}
+
+.circleButton.is-filled {
+    color: rgb(255, 255, 255);
+    font-variation-settings:
+        'FILL' 1
 }
 
 input[type="checkbox"] {

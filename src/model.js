@@ -99,7 +99,7 @@ Task.prototype.getStarred = function () {
 };
 
 Task.prototype.toggleCompleted = function (completed) {
-    return this.completed = !completed;
+    return this.completed = !this.completed;
 };
 
 Task.prototype.getCompleted = function () {
