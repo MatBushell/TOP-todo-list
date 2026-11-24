@@ -16,7 +16,7 @@ const addTaskForm = document.getElementById("addTaskForm");
 const detailsButton = document.querySelector(".detailsButton");
 const datePickerPopover = document.getElementById("datePicker");
 const schedulButton = document.querySelector(".schedulButton");
-const starredButton = document.querySelector(".starredButton");
+const newStarButton = document.querySelector(".newStarButton");
 // Create new list / project selectors
 const addProjectDialog = document.getElementById("addProjectDialog");
 const addProjectForm = document.getElementById("addProjectForm");
@@ -35,7 +35,7 @@ let myTasksId;
 
 function positionPopover() {
     const rect = schedulButton.getBoundingClientRect();
-    datePickerPopover.style.position= "absolute";
+    datePickerPopover.style.position = "absolute";
     datePickerPopover.style.margin = "0";
     datePickerPopover.style.top = `${rect.bottom + window.scrollY + 8}px`; // 8px offset
     datePickerPopover.style.left = `${rect.left + window.scrollX}px`
@@ -60,13 +60,11 @@ function renameProject(e) {
     const id = currProject.id;
     const formData = new FormData(renameProjectForm);
     const newTitle = formData.get("projectTitle");
-    console.log(newTitle);
     currProject.rename(newTitle);
     const currentTab = document.querySelector(".isActive");
     currentTab.textContent = currProject.getTitle();
 
     // currProject.pushTask(newTask);
-    console.log(projects);
 
 
     renameProjectForm.reset();
@@ -172,7 +170,6 @@ function handleNewListDone(e) {
     clearActiveTabs();
     addTab();
     createProjectCard();
-    console.log(projects);
     addProjectForm.reset();
     addProjectDialog.close();
 
@@ -200,7 +197,6 @@ function handleTabClick(e) {
         clearActiveTabs();
         e.target.classList.add("isActive");
         createStarCard();
-        // console.log("you clicked the star");
     } else {
         clearActiveTabs();
         e.target.classList.add("isActive");
@@ -233,7 +229,6 @@ function addDetails(e) {
 
 }
 
-
 function paintTasksList(currProject) {// creates dom elements for current projects taskList items ("tasks").
 
     const tasks = currProject.getTaskList();
@@ -264,13 +259,19 @@ function paintTasksList(currProject) {// creates dom elements for current projec
 
         const star = document.createElement("button");
         star.textContent = "star";
-        star.classList.add("material-symbols-outlined", "starButton");
+        star.classList.add("material-symbols-outlined", "existingStarButton");
+        // console.log(`The current task is: ${tasks[curTask].starred}`);
+        if (tasks[curTask].starred === "on" || tasks[curTask].starred === true) {
+            star.classList.toggle("is-filled");
+        }
+
 
         containerLeft.append(circleButton);
         containerMiddle.append(taskTitle);
         containerRight.append(star);
         taskContainer.append(containerLeft, containerMiddle, containerRight);
         cardTasks.append(taskContainer);
+
     }
 
 }
@@ -292,9 +293,21 @@ function editTask(e) {
 }
 
 function starTask(e) {
-    const star = e.target.closest(".starButton");
+    const star = e.target.closest(".existingStarButton");
+    const curTask = e.target.closest(".taskContainer");
+    const id = curTask?.getAttribute("data-id");
+    const currProject = getCurrentProject();
+    const tasks = currProject.getTaskList();
+    const foundTask = tasks.find(task => task.id === id);
+
+    // console.log(`The current project id is: ${currProject.id} and it's title is ${foundTask.title}`);
+    // console.log(tasks[0]);
+
     if (!star) return;
-    console.log("You clicked the star!");
+    // console.log(`You clicked the star! with data-id: ${id}`);
+    foundTask.toggleStarred();
+    star.classList.toggle("is-filled");
+    console.log(tasks[0]);
 }
 
 function getActiveTabId() {
@@ -326,7 +339,7 @@ function handleTaskSave(e) {
     const { id, taskTitle: title, details, dueDate, starred } = formObject;
     const newTask = new Task(title, details, dueDate, starred);
     console.log(title);
-    console.log(starred);
+    // console.log(starred);
     currProject.pushTask(newTask);
     console.log(projects);
 
@@ -339,7 +352,7 @@ function handleTaskSave(e) {
 
 function init() {
     nav.addEventListener("click", handleTabClick);
-    // Task listeners
+    // New Task listeners
     plusButton.addEventListener("click", handlePlusClick);
     addTaskForm.addEventListener("submit", handleTaskSave);
     addTaskDialog.addEventListener("close", () => {
@@ -348,7 +361,7 @@ function init() {
             detailsEl.remove();
         }
         addTaskForm.reset();
-        starredButton.classList.remove("is-filled");
+        newStarButton.classList.remove("is-filled");
     });
     detailsButton.addEventListener("click", (e) => {
         const detailsEl = document.querySelector(".details");
@@ -366,18 +379,19 @@ function init() {
         }
     });
 
-    starredButton.addEventListener("click", () => {
+    newStarButton.addEventListener("click", () => {
         const currProject = getCurrentProject();
         console.log(currProject.id);
 
-        starredButton.classList.toggle("is-filled");
+        newStarButton.classList.toggle("is-filled");
 
     })
     // schedulButton.addEventListener("click", () => {
-    //     // console.log("schedule!");
     //     datePickerPopover.togglePopover();
 
     // })
+
+    // Existing task listeners
     content.addEventListener("click", editTask);
     content.addEventListener("click", completeTask);
     content.addEventListener("click", starTask);
