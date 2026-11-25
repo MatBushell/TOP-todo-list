@@ -267,6 +267,7 @@ function paintTasksList(currProject) {// creates dom elements for current projec
 
         if (tasks[curTask].completed === true) {
             circleButton.classList.toggle("is-filled");
+            taskContainer.classList.add("completed");
         }
 
 
@@ -274,16 +275,22 @@ function paintTasksList(currProject) {// creates dom elements for current projec
         containerMiddle.append(taskTitle);
         containerRight.append(star);
         taskContainer.append(containerLeft, containerMiddle, containerRight);
-        cardTasks.append(taskContainer);
+        
+        // sort completed and incompleted
+        if (taskContainer.classList.contains("completed")) {
+            cardTasks.append(taskContainer); // add to the end
+        } else {
+            cardTasks.prepend(taskContainer);
+        }
 
     }
 
 }
 
-function sortCompleted() {
-    const taskContainer = document.querySelectorAll(".taskContainer");
-    const completedTasks = taskContainer.querySelectorAll(".completed");
-}
+// function sortCompleted() {
+//     const taskContainer = document.querySelectorAll(".taskContainer");
+//     const completedTasks = taskContainer.querySelectorAll(".completed");
+// }
 
 function completeTask(e) {
     const circleButton = e.target.closest(".circleButton");
@@ -293,8 +300,9 @@ function completeTask(e) {
     const tasks = currProject.getTaskList();
     const foundTask = tasks.find(task => task.id === id);
     if (!circleButton) return;
-    foundTask.toggleCompleted();
-    circleButton.classList.toggle("is-filled");
+    foundTask.toggleCompleted(); // mutate the object
+    circleButton.classList.toggle("is-filled"); //update button ui
+    paintTasksList(currProject); // update tasks ui
     console.log(tasks[0], tasks[1]);
     console.log("You completed a task!");
 }
