@@ -260,9 +260,13 @@ function paintTasksList(currProject) {// creates dom elements for current projec
         const star = document.createElement("button");
         star.textContent = "star";
         star.classList.add("material-symbols-outlined", "existingStarButton");
-        // console.log(`The current task is: ${tasks[curTask].starred}`);
+
         if (tasks[curTask].starred === "on" || tasks[curTask].starred === true) {
             star.classList.toggle("is-filled");
+        }
+
+        if (tasks[curTask].completed === true) {
+            circleButton.classList.toggle("is-filled");
         }
 
 
@@ -276,6 +280,11 @@ function paintTasksList(currProject) {// creates dom elements for current projec
 
 }
 
+function sortCompleted() {
+    const taskContainer = document.querySelectorAll(".taskContainer");
+    const completedTasks = taskContainer.querySelectorAll(".completed");
+}
+
 function completeTask(e) {
     const circleButton = e.target.closest(".circleButton");
     const curTask = e.target.closest(".taskContainer");
@@ -286,7 +295,7 @@ function completeTask(e) {
     if (!circleButton) return;
     foundTask.toggleCompleted();
     circleButton.classList.toggle("is-filled");
-    console.log(tasks[0]);
+    console.log(tasks[0], tasks[1]);
     console.log("You completed a task!");
 }
 
